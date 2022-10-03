@@ -11,7 +11,7 @@ function App(): JSX.Element {
     setProducts(getFoods());
   }, []);
 
-  console.log("Aladin genomgång Git");
+  console.log("Aladin Git");
 
   return (
     <Container>
