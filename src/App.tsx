@@ -9,9 +9,8 @@ function App(): JSX.Element {
 
   useEffect(() => {
     setProducts(getFoods());
+    console.log("products", products);
   }, []);
-
-  console.log("Aladin genomgång Git");
 
   return (
     <Container>
