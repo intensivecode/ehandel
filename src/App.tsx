@@ -9,6 +9,7 @@ function App(): JSX.Element {
 
   useEffect(() => {
     setProducts(getFoods());
+    console.log("products", products);
   }, []);
 
   return (
