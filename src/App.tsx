@@ -12,8 +12,6 @@ function App(): JSX.Element {
     console.log("products", products);
   }, []);
 
-  console.log("Aladin Git");
-
   return (
     <Container>
       <ProductList products={products} />
