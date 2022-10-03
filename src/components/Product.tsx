@@ -11,7 +11,7 @@ function Product({ _id, name, category, price, imgUrl }: IProduct) {
       </div>
       <div>
         <Text className="price">{price}</Text>
-        <Button>Köp denna nu!</Button>
+        <Button>Köp</Button>
       </div>
     </Container>
   );
