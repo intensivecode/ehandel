@@ -28,14 +28,35 @@ function App(): JSX.Element {
     }
   }
 
+  function handleRemove(product: IProduct) {
+    const cartItem = cart.find((cartItem) => cartItem._id === product._id);
+
+    if (cartItem) {
+      cartItem.quantity--;
+      setCart([...cart]);
+    }
+  }
+
+  const cartQuantity = cart.reduce(
+    (totalQuantity, cartItem) => totalQuantity + cartItem.quantity,
+    0
+  );
+
   return (
     <>
-      <Navbar cartCount={cart.length} />
+      <Navbar cartCount={cartQuantity} />
       <Container>
         <Routes>
           <Route
             path="/"
-            element={<ProductList products={products} onAdd={handleAdd} />}
+            element={
+              <ProductList
+                cart={cart}
+                products={products}
+                onAdd={handleAdd}
+                onRemove={handleRemove}
+              />
+            }
           />
           <Route path="/checkout" element={<Checkout cartItems={cart} />} />
         </Routes>

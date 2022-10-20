@@ -8,6 +8,7 @@ const foods = [
     numberInStock: 6,
     price: 10,
     imgUrl: "images/apple.png",
+    color: "#841519",
   },
   {
     _id: "5b21ca3eeb7f6fbccd471816",
@@ -16,6 +17,7 @@ const foods = [
     numberInStock: 5,
     price: 15,
     imgUrl: "images/banana.png",
+    color: "#E7C22A",
   },
   {
     _id: "5b21ca3eeb7f6fbccd471817",
@@ -24,6 +26,7 @@ const foods = [
     numberInStock: 8,
     price: 7,
     imgUrl: "images/cucumber.png",
+    color: "#2A5D1F",
   },
   {
     _id: "5b21ca3eeb7f6fbccd471819",
@@ -32,6 +35,7 @@ const foods = [
     numberInStock: 7,
     price: 12,
     imgUrl: "images/chips.png",
+    color: "#055967",
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181a",
@@ -40,6 +44,7 @@ const foods = [
     numberInStock: 7,
     price: 8,
     imgUrl: "images/cookies.png",
+    color: "#D18344",
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181b",
@@ -48,6 +53,7 @@ const foods = [
     numberInStock: 7,
     price: 13,
     imgUrl: "images/muffins.png",
+    color: "#3B2621",
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181e",
@@ -56,6 +62,7 @@ const foods = [
     numberInStock: 7,
     price: 7,
     imgUrl: "images/carrot.png",
+    color: "#F1631B",
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181f",
@@ -64,6 +71,7 @@ const foods = [
     numberInStock: 4,
     price: 14,
     imgUrl: "images/sallad.png",
+    color: "#9FBE43",
   },
   {
     _id: "5b21ca3eeb7f6fbccd471821",
@@ -72,6 +80,7 @@ const foods = [
     numberInStock: 7,
     price: 20,
     imgUrl: "images/orange.png",
+    color: "#EF8A21",
   },
 ];
 

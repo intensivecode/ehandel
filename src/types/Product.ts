@@ -5,6 +5,7 @@ export interface IProduct {
   numberInStock: number;
   price: number;
   imgUrl: string;
+  color?: string;
 }
 
 interface ICategory {

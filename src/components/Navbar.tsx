@@ -10,7 +10,7 @@ function Navbar({ cartCount }: Props): JSX.Element {
 
   return (
     <Container>
-      <h1 onClick={() => navigate("/")}>Navbar</h1>
+      <Header onClick={() => navigate("/")}>Navbar</Header>
       <CartIcon
         onClick={() => navigate("/checkout")}
         className="fa-solid fa-cart-shopping"
@@ -28,6 +28,10 @@ const Container = styled.div`
   justify-content: space-between;
   background-color: #adb6c4;
   padding: 16px;
+`;
+
+const Header = styled.h1`
+  cursor: pointer;
 `;
 
 const CartIcon = styled.i`

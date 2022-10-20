@@ -11,7 +11,9 @@ function Checkout({ cartItems }: Props) {
       <h1>Checkout Page {":)"}</h1>
       <ul>
         {cartItems.map((cartItem) => (
-          <li key={cartItem._id}>{cartItem.name}</li>
+          <li key={cartItem._id}>
+            {cartItem.name} - {cartItem.quantity}x
+          </li>
         ))}
       </ul>
     </div>
