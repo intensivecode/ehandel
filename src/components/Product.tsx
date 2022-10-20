@@ -1,17 +1,24 @@
 import styled from "styled-components";
 import { IProduct } from "../types/Product";
 
-function Product({ _id, name, category, price, imgUrl }: IProduct) {
+interface Props {
+  onAdd(product: IProduct): void;
+  product: IProduct;
+}
+
+function Product({ product, onAdd }: Props) {
   return (
-    <Container key={_id}>
-      <img src={imgUrl} />
+    <Container key={product._id}>
+      <img src={product.imgUrl} alt="" />
       <div>
-        <Text className="category">{category.name}</Text>
-        <Text>{name}</Text>
+        <Text className="category">{product.category.name}</Text>
+        <Text>{product.name}</Text>
       </div>
       <div>
-        <Text className="price">{price}</Text>
-        <Button>Köp</Button>
+        <Text className="price">{product.price}</Text>
+        <Button variant="secondary" onClick={() => onAdd(product)}>
+          <i className="fa-solid fa-cart-shopping" />
+        </Button>
       </div>
     </Container>
   );
@@ -51,12 +58,26 @@ const Text = styled.p`
   }
 `;
 
-const Button = styled.button`
+interface ButtonProps {
+  variant: "primary" | "secondary";
+}
+
+const Button = styled.button<ButtonProps>`
+  cursor: pointer;
   width: 100%;
   border-radius: 8px;
   border: none;
   padding: 8px 0;
   text-align: center;
-  background-color: #294c60;
+  background-color: ${(props) =>
+    props.variant === "primary" ? "#294C60" : "#845A6D"};
   color: white;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
 `;
