@@ -1,16 +1,14 @@
-import { ICartItem } from "../types/Cart";
+import { useSelector } from "react-redux";
+import { getCart } from "../store/cart";
 
-interface Props {
-  cartItems: ICartItem[];
-}
+function Checkout() {
+  const cart = useSelector(getCart);
 
-function Checkout({ cartItems }: Props) {
-  console.log("cartItems", cartItems);
   return (
     <div>
       <h1>Checkout Page {":)"}</h1>
       <ul>
-        {cartItems.map((cartItem) => (
+        {cart.map((cartItem: any) => (
           <li key={cartItem._id}>
             {cartItem.name} - {cartItem.quantity}x
           </li>

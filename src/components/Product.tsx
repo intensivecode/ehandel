@@ -1,17 +1,15 @@
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { ICartItem } from "../types/Cart";
+import { addCartItem, getProductQuantity, removeCartItem } from "../store/cart";
 import { IProduct } from "../types/Product";
 
 interface Props {
-  onAdd(product: IProduct): void;
-  onRemove(product: IProduct): void;
   product: IProduct;
-  cart: ICartItem[];
 }
 
-function Product({ cart, product, onAdd, onRemove }: Props) {
-  const cartItem = cart.find((cartItem) => cartItem._id === product._id);
-  const quantity = cartItem ? cartItem.quantity : 0;
+function Product({ product }: Props) {
+  const dispatch = useDispatch();
+  const quantity = useSelector(getProductQuantity(product._id));
 
   return (
     <Container key={product._id} color={product.color}>
@@ -25,16 +23,25 @@ function Product({ cart, product, onAdd, onRemove }: Props) {
       <div>
         <Text className="price">{product.price}kr</Text>
         {quantity === 0 ? (
-          <AddToCartButton color={product.color} onClick={() => onAdd(product)}>
+          <AddToCartButton
+            color={product.color}
+            onClick={() => dispatch(addCartItem(product))}
+          >
             <i className="fa-solid fa-cart-shopping" />
           </AddToCartButton>
         ) : (
           <ButtonContainer>
-            <Button color={product.color} onClick={() => onRemove(product)}>
+            <Button
+              color={product.color}
+              onClick={() => dispatch(removeCartItem(product))}
+            >
               -
             </Button>
             <Input value={quantity} />
-            <Button color={product.color} onClick={() => onAdd(product)}>
+            <Button
+              color={product.color}
+              onClick={() => dispatch(addCartItem(product))}
+            >
               +
             </Button>
           </ButtonContainer>

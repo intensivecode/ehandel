@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { getCartQuantity } from "../store/cart";
 
-interface Props {
-  cartCount: number;
-}
-
-function Navbar({ cartCount }: Props): JSX.Element {
+function Navbar(): JSX.Element {
   const navigate = useNavigate();
+  const cartCount = useSelector(getCartQuantity);
 
   return (
     <Container>

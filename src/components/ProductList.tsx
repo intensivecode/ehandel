@@ -1,26 +1,17 @@
 import styled from "styled-components";
-import { ICartItem } from "../types/Cart";
-import { IProduct } from "../types/Product";
+import { useSelector } from "react-redux";
 import Product from "./Product";
+import { getProducts } from "../store/products";
 
-interface Props {
-  cart: ICartItem[];
-  products: IProduct[];
-  onAdd(product: IProduct): void;
-  onRemove(product: IProduct): void;
-}
+function ProductList() {
+  const { list: products, isLoading } = useSelector(getProducts);
 
-function ProductList({ cart, products, onAdd, onRemove }: Props) {
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <Container>
-      {products.map((product) => (
-        <Product
-          key={product._id}
-          product={product}
-          cart={cart}
-          onAdd={onAdd}
-          onRemove={onRemove}
-        />
+      {products.map((product: any) => (
+        <Product key={product._id} product={product} />
       ))}
     </Container>
   );

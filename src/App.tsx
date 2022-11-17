@@ -1,64 +1,43 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
 import Checkout from "./components/Checkout";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
-import { getFoods } from "./services/fakeFoodService";
-import { ICartItem } from "./types/Cart";
-import { IProduct } from "./types/Product";
+import { getProducts } from "./services/productService";
+import { apiCallBegan } from "./store/api";
+import { loaded, requested } from "./store/products";
 
 function App(): JSX.Element {
-  const [products, setProducts] = useState<IProduct[]>([]);
-  const [cart, setCart] = useState<ICartItem[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setProducts(getFoods());
+    async function loadAllProducts() {
+      const { data: products } = await getProducts();
+      dispatch(loaded(products));
+    }
+
+    // @ts-ignore
+    dispatch(
+      // @ts-ignore
+      apiCallBegan({
+        url: "/foods",
+        onSuccess: loaded.type,
+        onStart: requested.type,
+      })
+    );
+
+    // loadAllProducts();
   }, []);
-
-  function handleAdd(product: IProduct) {
-    const cartItem = cart.find((cartItem) => cartItem._id === product._id);
-
-    if (cartItem) {
-      cartItem.quantity++;
-      setCart([...cart]);
-    } else {
-      const newCartItem = { ...product, quantity: 1 };
-      setCart([...cart, newCartItem]);
-    }
-  }
-
-  function handleRemove(product: IProduct) {
-    const cartItem = cart.find((cartItem) => cartItem._id === product._id);
-
-    if (cartItem) {
-      cartItem.quantity--;
-      setCart([...cart]);
-    }
-  }
-
-  const cartQuantity = cart.reduce(
-    (totalQuantity, cartItem) => totalQuantity + cartItem.quantity,
-    0
-  );
 
   return (
     <>
-      <Navbar cartCount={cartQuantity} />
+      <Navbar />
       <Container>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <ProductList
-                cart={cart}
-                products={products}
-                onAdd={handleAdd}
-                onRemove={handleRemove}
-              />
-            }
-          />
-          <Route path="/checkout" element={<Checkout cartItems={cart} />} />
+          <Route path="/" element={<ProductList />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </Container>
     </>
