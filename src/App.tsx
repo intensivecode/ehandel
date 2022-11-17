@@ -5,31 +5,36 @@ import styled from "styled-components";
 import Checkout from "./components/Checkout";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/ProductList";
-import { getProducts } from "./services/productService";
-import { apiCallBegan } from "./store/api";
-import { loaded, requested } from "./store/products";
+import { loadProducts } from "./store/products";
+import {
+  useGetFoodQuery,
+  useGetFoodsQuery,
+  useUpdateFoodMutation,
+} from "./store/rtkApi";
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
+  const { data: products = [], isLoading } = useGetFoodsQuery("products");
+  // const { data: food } = useGetFoodQuery("636d3c1ef209cf2df22159f3");
+  // const [updateFood] = useUpdateFoodMutation();
 
   useEffect(() => {
-    async function loadAllProducts() {
-      const { data: products } = await getProducts();
-      dispatch(loaded(products));
-    }
-
-    // @ts-ignore
-    dispatch(
-      // @ts-ignore
-      apiCallBegan({
-        url: "/foods",
-        onSuccess: loaded.type,
-        onStart: requested.type,
-      })
-    );
-
-    // loadAllProducts();
+    dispatch(loadProducts());
+    // updateFood({
+    //   _id: "636d3c1ef209cf2df22159f3",
+    //   name: "Nazih",
+    //   categoryId: "636d36ab2d725fd9e344ea4b",
+    //   numberInStock: 10,
+    //   price: 10,
+    //   imgUrl:
+    //     "https://healthiersteps.com/wp-content/uploads/2021/12/green-apple-benefits.jpeg",
+    //   color: "#73AA01",
+    // });
   }, []);
+
+  console.log("aladin", products);
+  console.log("isLoading", isLoading);
+  // console.log("getting the apple (aladin)", food);
 
   return (
     <>

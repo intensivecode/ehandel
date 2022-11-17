@@ -4,15 +4,14 @@ import { apiCallFailed, apiCallSucceeded } from "../api";
 export const api = (store) => (next) => async (action) => {
   if (action.type !== "api/callBegan") return next(action);
 
+  const { dispatch } = store;
   const { url, method, data, onStart, onSuccess, onFailed } = action.payload;
+
+  if (onStart) dispatch({ type: onStart });
 
   next(action);
 
   try {
-    if (onStart) {
-      store.dispatch({ type: onStart });
-    }
-
     const response = await axios.request({
       baseURL: "http://localhost:8000/api",
       url,
@@ -20,16 +19,16 @@ export const api = (store) => (next) => async (action) => {
       data,
     });
 
-    store.dispatch(apiCallSucceeded(response.data));
+    dispatch(apiCallSucceeded(response.data));
 
     if (onSuccess) {
-      store.dispatch({ type: onSuccess, payload: response.data });
+      dispatch({ type: onSuccess, payload: response.data });
     }
   } catch (error) {
-    store.dispatch(apiCallFailed(error));
+    dispatch(apiCallFailed(error));
 
     if (onFailed) {
-      store.dispatch({ type: onFailed, payload: error });
+      dispatch({ type: onFailed, payload: error });
     }
   }
 };

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
 
 const slice = createSlice({
   name: "products",
@@ -17,7 +18,17 @@ const slice = createSlice({
   },
 });
 
+const { loaded, requested } = slice.actions;
+
+const url = (id) => (id ? `/foods/${id}` : "/foods");
+
+export const loadProducts = () =>
+  apiCallBegan({
+    url: url(),
+    onSuccess: loaded.type,
+    onStart: requested.type,
+  });
+
 export const getProducts = (state) => state.entities.products;
 
-export const { loaded, requested } = slice.actions;
 export default slice.reducer;
